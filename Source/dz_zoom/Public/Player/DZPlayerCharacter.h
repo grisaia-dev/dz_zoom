@@ -33,6 +33,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cursor")
 	FVector CursorSize = FVector(20.0f, 40.0f, 40.0f);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera|Zoom")
+	float MinZoomLength = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera|Zoom")
+	float MaxZoomLength = 500.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera|Zoom")
+	float ZoomStep = 10.f;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -46,6 +53,7 @@ public:
 private:
 	void PMoveForward(float Value);
 	void PMoveRight(float Value);
+	void PZoom(float Value);
 
 	float ArmLength = 1400.F;
 	float ArmYRotation = -75.f;

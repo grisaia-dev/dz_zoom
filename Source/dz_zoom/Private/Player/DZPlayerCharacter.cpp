@@ -65,6 +65,7 @@ void ADZPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 	PlayerInputComponent->BindAxis("PMoveForward", this, &ADZPlayerCharacter::PMoveForward);
 	PlayerInputComponent->BindAxis("PMoveRight", this, &ADZPlayerCharacter::PMoveRight);
+	PlayerInputComponent->BindAxis("PZoom", this, &ADZPlayerCharacter::PZoom);
 
 }
 
@@ -74,4 +75,12 @@ void ADZPlayerCharacter::PMoveForward(float Value) {
 
 void ADZPlayerCharacter::PMoveRight(float Value) {
 	AddMovementInput(GetActorRightVector(), Value);
+}
+
+void ADZPlayerCharacter::PZoom(float Value) {
+	if (!CameraComponent) return;
+	FVector pos = CameraComponent->GetRelativeLocation();
+	float newPosX = pos[0] + Value * ZoomStep;
+	pos[0] = FMath::Clamp(newPosX, MinZoomLength, MaxZoomLength);
+	CameraComponent->SetRelativeLocation(pos);
 }
